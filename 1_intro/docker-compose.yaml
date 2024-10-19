@@ -9,6 +9,7 @@ services:
       - './ny_taxi_postgres_data:/var/lib/postgresql/data:rw'
     ports:
       - '5432:5432'
+
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -18,3 +19,17 @@ services:
       - './data_pgadmin:/var/lib/pgadmin'
     ports:
       - '8080:80'
+
+  ingest_data:
+    build:
+      context: .
+    environment:
+      - USER=root
+      - PASSWORD=root
+      - HOST=pgdatabase
+      - PORT=5432
+      - DB=ny_taxi
+      - TABLE_NAME=yellow_taxi_trips
+      - URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+    depends_on:
+      - pgdatabase
