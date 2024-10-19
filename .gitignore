@@ -3,3 +3,6 @@ ny_taxi_postgres_data/
 *.csv
 *.pdf
 *.parquet
+
+data_pgadmin/
+.ipynb_checkpoints
